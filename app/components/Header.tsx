@@ -9,6 +9,8 @@ import {
   LayoutGrid,
   BookOpen,
   FileUser,
+  Github,
+  Linkedin,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,18 +18,20 @@ import { Separator } from "@/components/ui/separator"
 
 type NavItem = {
     href: string
-    label: string
+    label?: string
     Icon: React.ComponentType<{ size?: number }>
     exact: boolean
 }
   
-  const navItems: NavItem[] = [
-    { href: "/", label: "", Icon: Home, exact: true },
-    { href: "/about", label: "About me", Icon: User, exact: true },
-    { href: "/work", label: "My Work", Icon: LayoutGrid, exact: false },
-    { href: "/blog", label: "Education", Icon: BookOpen, exact: false },
-    { href: "/gallery", label: "Resume", Icon: FileUser, exact: false },
-  ]
+const navItems: NavItem[] = [
+  { href: "/", label: "", Icon: Home, exact: true },
+  { href: "/about", label: "About me", Icon: User, exact: true },
+  { href: "/work", label: "My Work", Icon: LayoutGrid, exact: false },
+  { href: "/blog", label: "Education", Icon: BookOpen, exact: false },
+  { href: "/resume.pdf", label: "Resume", Icon: FileUser, exact: false },
+  { href: "https://www.linkedin.com/in/santiago-fonseca-ribes-91a998210/", Icon: Linkedin, exact: false },
+  { href: "https://github.com/santiifr", Icon: Github, exact: false },
+];
 
 const display = {
   location: true,
@@ -73,6 +77,13 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({
 
 export default TimeDisplay
 
+function getLinkAttributes(href: string) {
+  if (href.startsWith("http") || href.endsWith(".pdf")) {
+    return { target: "_blank", rel: "noopener noreferrer" };
+  }
+  return {};
+}
+
 export function Header() {
   const pathname = usePathname() ?? ""
 
@@ -100,18 +111,14 @@ export function Header() {
                   : pathname.startsWith(item.href)
                 return (
                   <div key={item.href} className="flex items-center">
-                    <Link href={item.href} passHref>
+                    <Link href={item.href} passHref {...getLinkAttributes(item.href)}>
                       <Button
                         variant={isActive ? "default" : "outline"}
                         size="sm"
                         className="flex items-center"
                       >
                         <item.Icon size={16} />
-                        {item.label && (
-                          <span className="hidden sm:flex ml-1">
-                            {item.label}
-                          </span>
-                        )}
+                        {item.label && <span className="hidden sm:flex ml-1">{item.label}</span>}
                       </Button>
                     </Link>
                     {index < navItems.length - 1 && (
