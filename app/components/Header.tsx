@@ -26,7 +26,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { href: "/", label: "", Icon: Home, exact: true },
   { href: "/about", label: "About me", Icon: User, exact: true },
-  { href: "/work", label: "My Work", Icon: LayoutGrid, exact: false },
+  { href: "#work", label: "My Work", Icon: LayoutGrid, exact: false },
   { href: "/blog", label: "Education", Icon: BookOpen, exact: false },
   { href: "/resume.pdf", label: "Resume", Icon: FileUser, exact: false },
   { href: "https://www.linkedin.com/in/santiago-fonseca-ribes-91a998210/", Icon: Linkedin, exact: false },
